@@ -1,4 +1,5 @@
 // tracking.js
+import { cart } from '../data/cart.js'
 import { getProduct } from '../data/products.js';
 import { getDeliveryOption } from '../data/deliveryOptions.js';
 import { formatCurrency } from './utils/money.js';
@@ -31,6 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 function initializeTrackingPage() {
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+     document.querySelector('.js-cart-quantity').textContent = `${totalItems}`;
   // Get orderId and productId from URL parameters
   const urlParams = new URL(window.location.href).searchParams;
   const orderId = urlParams.get('orderId');
@@ -40,8 +43,7 @@ function initializeTrackingPage() {
     showError('Missing order information');
     return;
   }
-  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-     document.querySelector('.js-cart-quantity').textContent = `${totalItems}`;
+  
 
   // Load the order from localStorage
   const orders = JSON.parse(localStorage.getItem('orders')) || [];
