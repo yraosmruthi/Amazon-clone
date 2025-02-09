@@ -40,6 +40,8 @@ function initializeTrackingPage() {
     showError('Missing order information');
     return;
   }
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+     document.querySelector('.js-cart-quantity').textContent = `${totalItems}`;
 
   // Load the order from localStorage
   const orders = JSON.parse(localStorage.getItem('orders')) || [];
